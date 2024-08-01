@@ -1,0 +1,23 @@
+GET http://localhost:8000/
+
+### 
+POST http://localhost:8000/users/login
+Content-Type: application/json
+
+{
+    "email": "hars@gmail.com",
+    "password" : "Password@1"
+}
+###
+POST http://localhost:8000/users/register
+Content-Type: application/json
+
+{
+    "name" : "Shobhana Daniel",
+    "email" : "shob@gmail.com",
+    "password" : "Password"
+}
+
+###
+GET http://localhost:8000/users/
+Authorization: 
