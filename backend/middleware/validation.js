@@ -22,7 +22,7 @@ export const loginInputValidation = (req, res, next) => {
 
 export const registerValidation = (req,res,next) =>{
     try{
-        const {name, email, password} = req.body;
+        const {name, email, password,confirmPassword} = req.body;
 
         if(!name){
             throw new Error("FullName is required.");
@@ -50,6 +50,11 @@ export const registerValidation = (req,res,next) =>{
         if(!/(?=.*[@$!%*?&])/.test(password)){
             throw new Error('Password must contain one special character');
         }
+
+        if(!(password === confirmPassword)){
+            throw new Error('Passwords do not match');
+        }
+
 
 
     }catch (e) {

@@ -1,10 +1,39 @@
 import { Box, Button,  TextField, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import axios from 'axios';
 import { Link } from "react-router-dom";
 
 function Register() {
-    const handleSubmit = (e) => {
+
+    const [fullName, setFullName]= useState('');
+    const [email, setEmail]= useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword,setConfirmPassword] = useState('');
+
+    const handleFullNameChange = (e)=>{
+        setFullName(e.target.value);
+    }
+
+    const handleEmailChange = (e)=>{
+        setEmail(e.target.value);
+    }
+
+    const handlePasswordChange = (e)=>{
+        setPassword(e.target.value);
+    }
+
+    const handleConfirmPasswordChange = (e) =>{
+        setConfirmPassword(e.target.value)
+    }
+
+    const handleSubmit = async(e) => {
         e.preventDefault();
-       console.log('Clicked');
+        try{
+            const response = await axios.post('/api/users/register', { name:fullName,email, password,confirmPassword });
+            console.log('Registration Success', response.data);
+        }catch(error){
+            console.error('Registration Failed:', error.response ? error.response.data : error.message);
+        }
     }
     return (
         
@@ -17,12 +46,17 @@ function Register() {
               required          
               label="FullName"
               name="FullName"
+              value={fullName}
+              onChange={handleFullNameChange}
               autoFocus
+              
             />
             <TextField
               required
               label="Email Address"
               name="email"
+              value={email}
+              onChange={handleEmailChange}
               autoFocus
             />
             <TextField
@@ -30,12 +64,16 @@ function Register() {
               name="password"
               label="Password"
               type="password"
+              value={password}
+              onChange={handlePasswordChange}
             />
              <TextField
               required
               name="confirm-password"
               label="Confirm Password"
               type="password"
+              value={confirmPassword}
+              onChange={handleConfirmPasswordChange}
             />
               <Link to={'/login'} variant="body2">
                   Already have an account? Login

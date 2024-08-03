@@ -1,5 +1,6 @@
 import React from 'react'
 import Login from '../components/Login'
+
 import { Box, Container } from '@mui/material'
 
 
@@ -13,7 +14,7 @@ const LoginPage = () => {
             flexDirection: 'column',
             alignItems: 'center',
           }}
-        ><Login /></Box>
+        > <Login /> </Box>
         
     </Container>
   )

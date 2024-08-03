@@ -14,10 +14,11 @@ Content-Type: application/json
 
 {
     "name" : "Shobhana Daniel",
-    "email" : "shob@gmail.com",
-    "password" : "Password"
+    "email" : "shob12@gmail.com",
+    "password" : "Password@1",
+    "confirmPassword": "Password@1"
 }
 
 ###
 GET http://localhost:8000/users/
-Authorization: 
+Authorization: Bearer 
