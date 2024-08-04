@@ -4,14 +4,9 @@ import Register from '../components/Register'
 
 const RegisterPage = () => {
 	return (
-		<Container style={{ height: '80vh' }} component="main" maxWidth="xs">
-			<Box
-				sx={{
-					height: '100%',
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'center',
-				}}
+		<Container style={{ width: '23rem' }} component="main" maxWidth="xs">
+			<Box 
+				className='form-box'
 			>
 				<Register />
 			</Box>

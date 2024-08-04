@@ -2,7 +2,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from 'axios'
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch} from "react-redux"
+import { useDispatch } from "react-redux"
 import { setToken } from "../slices/authSlices";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
@@ -19,7 +19,7 @@ function Login() {
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-	
+
 
 
 	const handleEmailChange = (e) => {
@@ -99,7 +99,11 @@ function Login() {
 			<Typography component="h1" variant="h5">
 				Login
 			</Typography>
-			<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 8, display: 'flex', justifyContent: 'flex-start', flexDirection: 'column', alignItems: 'center' }}>
+			<Box
+				component="form"
+				onSubmit={handleSubmit}
+				className="form-flex"
+			>
 				<TextField
 					error={emailError ? true : false}
 					helperText={emailError}
@@ -119,7 +123,11 @@ function Login() {
 					value={password}
 					onChange={handlePasswordChange}
 				/>
-				<Link to={'/register'} variant="body2">
+				<Link
+					to={'/register'}
+					variant="body2"
+					style={{ marginTop: 4 }}
+				>
 					{/* eslint-disable-next-line react/no-unescaped-entities */}
 					Don't have an account? Register
 				</Link>

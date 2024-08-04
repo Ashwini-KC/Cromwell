@@ -79,7 +79,7 @@ function Register() {
 		}
 	}
 
-
+	//Validation of FullName field
 	useEffect(() => {
 		if (!fullName.length) {
 			setFullNameError('FullName is Required');
@@ -95,7 +95,7 @@ function Register() {
 
 	}, [fullName]);
 
-
+	//Validation of Email field
 	useEffect(() => {
 		if (!email.length) {
 			setEmailError('Email is Required');
@@ -110,6 +110,7 @@ function Register() {
 		}
 	}, [email]);
 
+	//Validation of Password field
 	useEffect(() => {
 
 		if (!password.length) {
@@ -141,7 +142,7 @@ function Register() {
 		}
 	}, [password]);
 
-
+	//Validation of Confirm Password
 	useEffect(() => {
 		if (!confirmPassword.length) {
 			setConfirmPasswordError('Confrim password required');
@@ -155,8 +156,8 @@ function Register() {
 			setConfirmPasswordError(false);
 			setIsFormValid(true);
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	},[confirmPassword]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [confirmPassword]);
 
 	return (
 
@@ -164,7 +165,11 @@ function Register() {
 			<Typography component="h1" variant="h5">
 				Register
 			</Typography>
-			<Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1, display: 'flex', justifyContent: 'flex-start', flexDirection: 'column' }}>
+			<Box
+				component="form"
+				onSubmit={handleSubmit}
+				className="form-flex"
+			>
 				<TextField
 					error={fullnameError ? true : false}
 					helperText={fullnameError}
@@ -173,7 +178,6 @@ function Register() {
 					value={fullName}
 					onChange={handleFullNameChange}
 					autoFocus
-
 				/>
 				<TextField
 					error={emailError ? true : false}
@@ -203,14 +207,19 @@ function Register() {
 					value={confirmPassword}
 					onChange={handleConfirmPasswordChange}
 				/>
-				<Link to={'/login'} variant="body2">
+				<Link 
+				to={'/login'} 
+				variant="body2"
+				style={{ marginTop: 4}}
+				>
 					Already have an account? Login
 				</Link>
 				<Button
 					type="submit"
 					fullWidth
 					variant="contained"
-					sx={{ mt: 3, mb: 2 }}>
+					sx={{ mt: 3, mb: 2 }}
+					>
 					Register
 				</Button>
 				<Snackbar

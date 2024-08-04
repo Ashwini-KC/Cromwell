@@ -5,14 +5,10 @@ import { Box, Container } from '@mui/material'
 
 const LoginPage = () => {
 	return (
-		<Container style={{ height: '80vh' }} component="main" maxWidth="xs">
+		<Container style={{ width: '23rem' }} component="main" maxWidth='xs'>
 			<Box
-				sx={{
-					height: '100%',
-					display: 'flex',
-					flexDirection: 'column',
-					alignItems: 'center',
-				}}>
+			className='form-box'
+				>
 				<Login />
 			</Box>
 
