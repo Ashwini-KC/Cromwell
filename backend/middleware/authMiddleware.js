@@ -14,7 +14,6 @@ const verify = async(req,res,next) => {
         req.user = await User.findById(decoded.userId).select('-password'); // Fetch user without password
         next();
     } catch (error) {
-        console.error('Token verification error:', error);
         res.status(401).json({ message: 'Token is not valid' });
     }
 };
