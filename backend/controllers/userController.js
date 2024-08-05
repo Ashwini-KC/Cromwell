@@ -17,10 +17,10 @@ const loginUser = async (req, res) => {
             });
         } else {
             //Error message if any of the user details mismatch during login
-            return res.status(401).json({ message: 'Invalid email or password' });
+            return res.status(401).json({error:{ message: 'Invalid email or password' }});
         }
     } catch (error) {
-        return res.status(500).json({ message: error.message });
+        return res.status(500).json({ error : {message: error.message }});
     }
 };
 
@@ -33,7 +33,7 @@ const registerUser = async (req, res) => {
         const userExists = await User.findOne({ email });
 
         if (userExists) {
-            return res.status(400).json({ message: 'User already exists' });
+            return res.status(400).json({error:{ message: 'User already exists' }});
         }
 
         const user = await User.create({
@@ -53,10 +53,10 @@ const registerUser = async (req, res) => {
                 }          
             });
         } else {
-            return res.status(400).json({ message: 'Failed to register user' });
+            return res.status(400).json({error :{ message: 'Failed to register user' }});
         }
     } catch (error) {
-        return res.status(500).json({ message: error.message });
+        return res.status(500).json({ error : {message: error.message }});
     }
 };
 
@@ -75,10 +75,10 @@ const getUser = async (req, res) => {
                  }
                 });
         } else {
-            return res.status(404).json({ message: 'User not found' });
+            return res.status(404).json({error: { message: 'User not found'} });
         }
     } catch (error) {
-        return res.status(500).json({ message: error.message });
+        return res.status(500).json({ error: {message: error.message }});
     }
 };
 

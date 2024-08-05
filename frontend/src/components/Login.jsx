@@ -1,44 +1,48 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, IconButton, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import axios from 'axios'
+import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux"
 import { setToken } from "../slices/authSlices";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import InputAdornment from '@mui/material/InputAdornment';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
 
 function Login() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [open, setOpen] = useState(false);
 	const [message, setMessage] = useState('');
-	const [severity, setSeverity] = useState('success')
+	const [severity, setSeverity] = useState('success');
 	const [emailError, setEmailError] = useState(false);
 	const [passwordError, setPasswordError] = useState(false);
 	const [isFormValid, setIsFormValid] = useState(true);
+	const [showPassword, setShowPassword] = useState(false);
+
+
+
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-
-
 	const handleEmailChange = (e) => {
 		setEmail(e.target.value);
-
-
-	}
+  }
 
 	const handlePasswordChange = (e) => {
 		setPassword(e.target.value);
-
-
 	}
 
 	const handleClose = () => {
 		setOpen(false);
 	}
 
-
+	const handleClickShowPassword = () => {
+		setShowPassword((show) => !show);
+	}
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -58,39 +62,49 @@ function Login() {
 				}, 2000);
 
 			} catch (error) {
-				let errorMessage = error.response ? error.response.data.message : error.message
+				let errorMessage = error.response ? error.response.data.error.message : error.message
 				setSeverity('error')
 				setMessage(errorMessage)
 				setOpen(true)
-				console.error('Login Failed:', error.response ? error.response.data.message : error.message);
+				console.error('Login Failed:', error.response ? error.response.data.error.message : error.message);
 			}
 		}
 	}
 
-
+//Validation of Email Field
 	useEffect(() => {
 		if (!email.length) {
+
 			setEmailError('Email is Required');
 			setIsFormValid(false);
+
 		} else if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+			
 			setEmailError('Email format is invalid');
 			setIsFormValid(false);
+			
 		}
 		else {
-			setEmailError(false);
-			setIsFormValid(true)
-		}
 
+			setEmailError(false);
+			setIsFormValid(true);
+
+		}
 	}, [email]);
 
+	//Validation of Password Field
 	useEffect(() => {
+
 		if (!password.length) {
 			setPasswordError('password required');
 			setIsFormValid(false);
+
 		}
 		else {
+
 			setPasswordError(false);
-			setIsFormValid(true)
+			setIsFormValid(true);
+
 		}
 	}, [password])
 
@@ -119,9 +133,21 @@ function Login() {
 					helperText={passwordError}
 					name="password"
 					label="Password"
-					type="password"
+					type={showPassword ? 'text' : 'password'}
 					value={password}
 					onChange={handlePasswordChange}
+					InputProps={{
+						endAdornment:
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+					}}
 				/>
 				<Link
 					to={'/register'}
@@ -139,6 +165,7 @@ function Login() {
 					Login
 				</Button>
 
+				{/* To display alert messages */}
 				<Snackbar
 					anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
 					open={open}

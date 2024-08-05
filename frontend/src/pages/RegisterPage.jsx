@@ -10,7 +10,6 @@ const RegisterPage = () => {
 			>
 				<Register />
 			</Box>
-
 		</Container>
 	)
 }

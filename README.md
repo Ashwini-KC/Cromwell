@@ -6,7 +6,7 @@
 2.npm
 3.Mongodb
 
-### Steps to be followed to run the application:
+### Steps to be followed to run the application
 
 1. Go to the project root directory and install packages for backend using `npm install`.
 2. Create `.env` file using `.env.example` file provided.

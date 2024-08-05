@@ -34,7 +34,7 @@ function Navbar() {
 	const handleLogout = () => {
 		dispatch(removeToken());
 		dispatch(setUser(null));
-		setMessage('Loggedout Successfully');
+		setMessage('User logged out');
 		setSeverity('success');
 		setOpen(true);
 	};
@@ -86,7 +86,10 @@ function Navbar() {
 
 									</>
 								) : (
-									<CircularProgress color="inherit" size={24} />
+									<CircularProgress
+										color="inherit"
+										size={24}
+									/>
 								)
 							) : (
 								<>
@@ -97,10 +100,13 @@ function Navbar() {
 									>
 										Login
 									</Button>
-									<Button component={Link} to="/register" sx={{ color: 'white' }}>
+									<Button
+										component={Link}
+										to="/register"
+										sx={{ color: 'white' }}
+									>
 										Register
 									</Button>
-
 								</>
 							)}
 						</Box>

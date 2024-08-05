@@ -6,7 +6,7 @@ const verify = async(req,res,next) => {
     const token = req.headers.authorization?.split(' ')[1];
 
     if (!token) {
-        return res.status(401).json({ message: 'No token provided, Authorization denied' });
+        return res.status(401).json({error:{ message: 'No token provided, Authorization denied' }});
     }
 
     try {
@@ -14,7 +14,7 @@ const verify = async(req,res,next) => {
         req.user = await User.findById(decoded.userId).select('-password'); // Fetch user without password
         next();
     } catch (error) {
-        res.status(401).json({ message: 'Token is not valid' });
+        res.status(401).json({ error:{message: 'Token is not valid'} });
     }
 };
 

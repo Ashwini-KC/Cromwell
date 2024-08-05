@@ -1,3 +1,4 @@
+//To validate login
 export const loginInputValidation = (req, res, next) => {
     try {
         const { email, password } = req.body;
@@ -19,7 +20,7 @@ export const loginInputValidation = (req, res, next) => {
     }
     next();
 }
-
+//To validate Register
 export const registerValidation = (req,res,next) =>{
     try{
         const {name, email, password,confirmPassword} = req.body;

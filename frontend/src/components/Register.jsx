@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, IconButton, InputAdornment, TextField, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
@@ -6,6 +6,8 @@ import { useDispatch } from "react-redux"
 import { setToken } from "../slices/authSlices";
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 function Register() {
@@ -18,6 +20,7 @@ function Register() {
 	const [severity, setSeverity] = useState('success');
 	const [open, setOpen] = useState(false);
 	const [message, setMessage] = useState('')
+	const [showPassword, setShowPassword] = useState(false);
 	//Validation states
 	const [fullnameError, setFullNameError] = useState(false);
 	const [emailError, setEmailError] = useState(false);
@@ -46,6 +49,10 @@ function Register() {
 		setOpen(false)
 	}
 
+	const handleClickShowPassword = () => {
+		setShowPassword((show) => !show);
+	}
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (isFormValid) {
@@ -68,13 +75,13 @@ function Register() {
 
 			}
 			catch (error) {
-				let errorMessage = error.response ? error.response.data.message : error.message;
+				let errorMessage = error.response ? error.response.data.error.message : error.message;
 
 				setSeverity('error')
 				setMessage(errorMessage)
 				setOpen(true)
 
-				console.error('Registration Failed:', error.response ? error.response.data : error.message);
+				console.error('Registration Failed:', error.response ? error.response.data.error.message : error.message);
 			}
 		}
 	}
@@ -84,7 +91,7 @@ function Register() {
 		if (!fullName.length) {
 			setFullNameError('FullName is Required');
 			setIsFormValid(false);
-		} else if (!fullName.length > 3) {
+		} else if (fullName.length < 3) {
 			setFullNameError('FullName length is insuffucient');
 			setIsFormValid(false);
 		}
@@ -114,7 +121,7 @@ function Register() {
 	useEffect(() => {
 
 		if (!password.length) {
-			setPasswordError('password required');
+			setPasswordError('Password required');
 			setIsFormValid(false);
 		}
 		else if (!/(?=.*[A-Z])/.test(password)) {
@@ -145,7 +152,7 @@ function Register() {
 	//Validation of Confirm Password
 	useEffect(() => {
 		if (!confirmPassword.length) {
-			setConfirmPasswordError('Confrim password required');
+			setConfirmPasswordError('Confirm password is required');
 			setIsFormValid(false);
 		}
 		else if (password !== confirmPassword) {
@@ -194,18 +201,42 @@ function Register() {
 					helperText={passwordError}
 					name="password"
 					label="Password"
-					type="password"
+					type={showPassword ? 'text' : 'password'}
 					value={password}
 					onChange={handlePasswordChange}
+					InputProps={{
+						endAdornment:
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+					}}
 				/>
 				<TextField
 					error={confirmPasswordError ? true : false}
 					helperText={confirmPasswordError}
 					name="confirm-password"
 					label="Confirm Password"
-					type="password"
+					type={showPassword ? 'text' : 'password'}
 					value={confirmPassword}
 					onChange={handleConfirmPasswordChange}
+					InputProps={{
+						endAdornment:
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+					}}
 				/>
 				<Link 
 				to={'/login'} 
