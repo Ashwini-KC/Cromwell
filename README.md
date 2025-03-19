@@ -2,9 +2,9 @@
 
 ## Prerequisites
 
-1.Nodejs
-2.npm
-3.Mongodb
+1. Nodejs
+2. npm
+3. Mongodb
 
 ### Steps to be followed to run the application
 
